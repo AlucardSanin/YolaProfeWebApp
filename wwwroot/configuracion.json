@@ -1,0 +1,7 @@
+{
+  // Carpeta (o dirección web) desde donde se lee TODO el contenido de la plataforma.
+  // - "contenido/"  -> usa la carpeta "contenido" que viene junto con el sitio (valor por defecto).
+  // - Una dirección completa (https://...) -> lee el contenido desde otro lugar,
+  //   por ejemplo un repositorio de GitHub. La dirección debe terminar en "/".
+  "contenidoUrlBase": "contenido/"
+}

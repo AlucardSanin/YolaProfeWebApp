@@ -1,0 +1,37 @@
+{
+  // ===== Datos generales de la plataforma =====
+  "nombrePlataforma": "Website de Fonética I",
+  "lema": "Phonetics Training Space",
+
+  // ===== Datos institucionales y de la tesis =====
+  "universidad": "Universidad Nacional Experimental Francisco de Miranda",
+  "siglasUniversidad": "UNEFM",
+  "programa": "Programa de Educación en Lengua Extranjera Mención Inglés",
+  "sede": "Municipalización Carirubana",
+  "ciudad": "Punto Fijo, estado Falcón",
+  "tituloTesis": "Website de fonética como herramienta tecnológica para el desarrollo de la producción oral en estudiantes del Programa de Educación en Lengua Extranjera Mención Inglés de la UNEFM Carirubana",
+  "autora": "Br. Yolanny Gomez",
+  "tutora": "Lcda. Karibel Velasco",
+  "anio": "2026",
+
+  // ===== Logos (archivos dentro de la carpeta "imagenes") =====
+  "logoPrincipal": "imagenes/logo-unefm.png",
+  "logoSecundario": "imagenes/logo-consejo-academico.png",
+
+  // ===== Formulario de Google para subir las grabaciones =====
+  // Pegue aquí el enlace del formulario (botón "Enviar" > ícono de enlace en Google Forms).
+  // Mientras esté vacío, el botón aparecerá como "Formulario no disponible todavía".
+  "formularioUrl": "",
+  // Opcional: identificador de la pregunta "Módulo" del formulario (ej. "entry.123456789")
+  // para que el formulario se abra con el módulo ya seleccionado. Puede dejarse vacío.
+  "formularioCampoModulo": "",
+
+  // ===== Módulos, en el orden en que aparecen en el menú =====
+  // Cada nombre corresponde a una carpeta dentro de "modulos".
+  "modulos": [
+    "modulo-1",
+    "modulo-2",
+    "modulo-3",
+    "modulo-4"
+  ]
+}

@@ -1,0 +1,18 @@
+@* Mensajes de "cargando" y de error comunes a todas las páginas. *@
+@if (Error is not null)
+{
+    <div class="aviso aviso-error" role="alert">
+        <strong>No se pudo cargar el contenido.</strong>
+        <p>@Error</p>
+        <p>Revise su conexión a internet y vuelva a intentarlo.</p>
+        <a class="boton boton-secundario" href="" onclick="location.reload(); return false;">Reintentar</a>
+    </div>
+}
+else
+{
+    <p class="cargando" aria-live="polite">Cargando contenido…</p>
+}
+
+@code {
+    [Parameter] public string? Error { get; set; }
+}

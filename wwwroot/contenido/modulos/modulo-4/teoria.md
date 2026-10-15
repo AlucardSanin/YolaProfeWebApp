@@ -1,0 +1,3 @@
+- **Word Stress (Acento de palabra):** En inglés, siempre hay una sílaba que suena más larga, más alta y más fuerte. El resto se reduce (generalmente al sonido Schwa `/ə/`). Ej: ==PHO==-to-graph vs. pho-==TO==-gra-pher.
+- **Terminaciones Gramaticales:** Reglas de pronunciación del pasado simple de verbos regulares (*-ed*) y plurales/tercera persona (*-s, -es*).
+- **Connected Speech (Linking):** Cuando los nativos hablan rápido, unen las palabras. Si una palabra termina en consonante y la siguiente empieza en vocal, ¡se conectan! (Ej. *Turn it on* suena como *Tur-ni-ton*).

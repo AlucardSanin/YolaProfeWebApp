@@ -1,0 +1,8 @@
+@* Muestra un texto Markdown ya cargado. Carpeta: base para imágenes/enlaces relativos. *@
+<div class="prosa @Clase">@((MarkupString)MarkdownService.AHtml(Texto, Carpeta))</div>
+
+@code {
+    [Parameter] public string? Texto { get; set; }
+    [Parameter] public Uri? Carpeta { get; set; }
+    [Parameter] public string? Clase { get; set; }
+}

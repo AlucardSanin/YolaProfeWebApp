@@ -1,0 +1,26 @@
+{
+  "numero": 1,
+  "titulo": "Fonética Articulatoria",
+  "objetivo": "Conocer la anatomía de tu propia pronunciación.",
+  "porQueImporta": "El inglés utiliza músculos y posiciones de la boca que el español no usa. Si no sabes de dónde sale el sonido (pulmones, laringe, lengua, paladar), no podrás moldearlo correctamente. ¡Conocer tu instrumento es el primer paso!",
+
+  // Videos de YouTube. Para mostrar el video dentro de la página, coloque en "youtubeId"
+  // el código que aparece en el enlace del video: https://www.youtube.com/watch?v=ESTE_CODIGO
+  // Si "youtubeId" está vacío, se muestra un botón para buscar el video en YouTube.
+  "videos": [
+    { "titulo": "The Speech Organs", "fuente": "BBC Learning English", "youtubeId": "", "busqueda": "Speech Organs BBC Learning English" }
+  ],
+
+  // Enlaces recomendados. Si "url" está vacío, se muestra solo como recomendación.
+  "enlaces": [
+    { "titulo": "Sounds of Speech (University of Iowa)", "url": "https://soundsofspeech.uiowa.edu/english", "descripcion": "Práctica interactiva: explora la anatomía vocal." }
+  ],
+
+  // El texto del reto (instrucciones y texto a leer) está en el archivo reto.md
+  "reto": {
+    "titulo": "Speaking Challenge 1: The Diagnostic Read",
+    "mensajeFinal": "¡Excelente trabajo! Has dado el primer paso: conocer tu propio instrumento.",
+    // Opcional: formulario distinto solo para este módulo (vacío = se usa el de sitio.json).
+    "formularioUrl": ""
+  }
+}

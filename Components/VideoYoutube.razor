@@ -1,0 +1,47 @@
+@*
+    Carga diferida: solo se muestra la miniatura (unos pocos KB). El reproductor de YouTube
+    (que pesa bastante) se descarga únicamente cuando el estudiante pulsa "Reproducir".
+*@
+<figure class="video">
+    @if (string.IsNullOrWhiteSpace(Video.YoutubeId))
+    {
+        <div class="video-marco video-pendiente">
+            <span class="video-pendiente-texto">Video disponible en YouTube</span>
+            <a class="boton boton-secundario" href="@UrlBusqueda" target="_blank" rel="noopener">Buscar en YouTube ↗</a>
+        </div>
+    }
+    else if (_reproduciendo)
+    {
+        <div class="video-marco">
+            <iframe src="https://www.youtube-nocookie.com/embed/@(Video.YoutubeId)?autoplay=1&rel=0"
+                    title="@Video.Titulo"
+                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>
+        </div>
+    }
+    else
+    {
+        <button type="button" class="video-marco video-portada" @onclick="() => _reproduciendo = true"
+                aria-label="Reproducir video: @Video.Titulo">
+            <img src="https://i.ytimg.com/vi/@(Video.YoutubeId)/hqdefault.jpg" alt="" loading="lazy" decoding="async" />
+            <span class="video-play" aria-hidden="true">▶</span>
+        </button>
+    }
+    <figcaption>
+        <strong>@Video.Titulo</strong>
+        @if (!string.IsNullOrWhiteSpace(Video.Fuente))
+        {
+            <span class="video-fuente">@Video.Fuente</span>
+        }
+    </figcaption>
+</figure>
+
+@code {
+    [Parameter, EditorRequired] public Video Video { get; set; } = default!;
+
+    private bool _reproduciendo;
+
+    private string UrlBusqueda =>
+        "https://www.youtube.com/results?search_query=" +
+        Uri.EscapeDataString(string.IsNullOrWhiteSpace(Video.Busqueda) ? Video.Titulo : Video.Busqueda);
+}

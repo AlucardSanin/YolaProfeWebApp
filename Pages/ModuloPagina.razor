@@ -1,0 +1,169 @@
+@page "/modulo/{Id}"
+@inject ContenidoService Contenido
+
+<PageTitle>@(_modulo is null ? "Módulo" : $"Módulo {_modulo.Numero}: {_modulo.Titulo}") · @_sitio?.NombrePlataforma</PageTitle>
+
+@if (_noEncontrado)
+{
+    <div class="aviso">
+        <strong>Este módulo no existe.</strong>
+        <p><a href="">Volver al inicio</a></p>
+    </div>
+}
+else if (_modulo is null || _sitio is null)
+{
+    <EstadoCarga Error="@_error" />
+}
+else
+{
+    <article class="modulo">
+        <header class="modulo-cabecera">
+            <p class="etiqueta">Módulo @_modulo.Numero de @_total</p>
+            <h1>@_modulo.Titulo</h1>
+        </header>
+
+        <div class="objetivos">
+            <section class="caja caja-objetivo">
+                <h2>Objetivo del módulo</h2>
+                <Markdown Texto="@_modulo.Objetivo" />
+            </section>
+            <section class="caja caja-importancia">
+                <h2>¿Por qué es importante?</h2>
+                <Markdown Texto="@_modulo.PorQueImporta" />
+            </section>
+        </div>
+
+        @if (!string.IsNullOrWhiteSpace(_teoria))
+        {
+            <section class="bloque">
+                <h2 class="seccion-titulo">Puntos clave</h2>
+                <Markdown Texto="@_teoria" Carpeta="@_carpeta" />
+            </section>
+        }
+
+        @if (_modulo.Videos.Count > 0 || _modulo.Enlaces.Count > 0)
+        {
+            <section class="bloque">
+                <h2 class="seccion-titulo">Multimedia y enlaces</h2>
+                @if (_modulo.Videos.Count > 0)
+                {
+                    <div class="videos">
+                        @foreach (var video in _modulo.Videos)
+                        {
+                            <VideoYoutube Video="video" />
+                        }
+                    </div>
+                }
+                @if (_modulo.Enlaces.Count > 0)
+                {
+                    <ul class="enlaces">
+                        @foreach (var enlace in _modulo.Enlaces)
+                        {
+                            <li>
+                                @if (string.IsNullOrWhiteSpace(enlace.Url))
+                                {
+                                    <strong>@enlace.Titulo</strong>
+                                }
+                                else
+                                {
+                                    <a href="@enlace.Url" target="_blank" rel="noopener"><strong>@enlace.Titulo</strong> ↗</a>
+                                }
+                                @if (!string.IsNullOrWhiteSpace(enlace.Descripcion))
+                                {
+                                    <span class="enlace-descripcion">@enlace.Descripcion</span>
+                                }
+                            </li>
+                        }
+                    </ul>
+                }
+            </section>
+        }
+
+        <section class="reto" aria-labelledby="titulo-reto">
+            <p class="etiqueta etiqueta-reto">🎯 Actividad evaluativa</p>
+            <h2 id="titulo-reto">@_modulo.Reto.Titulo</h2>
+            <Markdown Texto="@_reto" Carpeta="@_carpeta" />
+
+            @if (_urlFormulario is not null)
+            {
+                <a class="boton boton-grande boton-reto" href="@_urlFormulario" target="_blank" rel="noopener">Subir audio aquí ↗</a>
+                <p class="reto-nota">Se abrirá un formulario de Google. Completa tus datos y adjunta tu grabación.</p>
+            }
+            else
+            {
+                <span class="boton boton-grande boton-deshabilitado" aria-disabled="true">Formulario no disponible todavía</span>
+            }
+
+            @if (!string.IsNullOrWhiteSpace(_modulo.Reto.MensajeFinal))
+            {
+                <p class="reto-final">@_modulo.Reto.MensajeFinal</p>
+            }
+        </section>
+
+        <nav class="paginacion" aria-label="Módulos">
+            @if (_anterior is not null)
+            {
+                <a class="paginacion-enlace" href="@($"modulo/{_anterior.Id}")">← Módulo @_anterior.Numero: @_anterior.Titulo</a>
+            }
+            else
+            {
+                <a class="paginacion-enlace" href="">← Inicio</a>
+            }
+            @if (_siguiente is not null)
+            {
+                <a class="paginacion-enlace paginacion-siguiente" href="@($"modulo/{_siguiente.Id}")">Módulo @_siguiente.Numero: @_siguiente.Titulo →</a>
+            }
+        </nav>
+    </article>
+}
+
+@code {
+    [Parameter] public string Id { get; set; } = "";
+
+    private Sitio? _sitio;
+    private Modulo? _modulo;
+    private Modulo? _anterior;
+    private Modulo? _siguiente;
+    private int _total;
+    private Uri? _carpeta;
+    private string? _teoria;
+    private string? _reto;
+    private string? _urlFormulario;
+    private string? _error;
+    private bool _noEncontrado;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        _modulo = null;
+        _error = null;
+        _noEncontrado = false;
+        try
+        {
+            _sitio = await Contenido.ObtenerSitioAsync();
+            var modulos = await Contenido.ObtenerModulosAsync();
+            var indice = modulos.FindIndex(m => m.Id == Id);
+            if (indice < 0)
+            {
+                _noEncontrado = true;
+                return;
+            }
+
+            var modulo = modulos[indice];
+            _total = modulos.Count;
+            _anterior = indice > 0 ? modulos[indice - 1] : null;
+            _siguiente = indice < modulos.Count - 1 ? modulos[indice + 1] : null;
+            _carpeta = await Contenido.UrlAsync($"modulos/{Id}/");
+
+            var teoria = Contenido.ObtenerTextoAsync($"modulos/{Id}/teoria.md");
+            var reto = Contenido.ObtenerTextoAsync($"modulos/{Id}/reto.md");
+            _teoria = await teoria;
+            _reto = await reto;
+            _urlFormulario = ContenidoService.UrlFormulario(_sitio, modulo);
+            _modulo = modulo;
+        }
+        catch (Exception ex)
+        {
+            _error = ex.Message;
+        }
+    }
+}

@@ -1,0 +1,65 @@
+@page "/acerca"
+@inject ContenidoService Contenido
+
+<PageTitle>Acerca de · @_sitio?.NombrePlataforma</PageTitle>
+
+@if (_sitio is null)
+{
+    <EstadoCarga Error="@_error" />
+}
+else
+{
+    <article class="acerca">
+        <div class="acerca-logos">
+            @if (_logoPrincipal is not null)
+            {
+                <img src="@_logoPrincipal" alt="Logo @_sitio.SiglasUniversidad" width="75" height="114" />
+            }
+            @if (_logoSecundario is not null)
+            {
+                <img src="@_logoSecundario" alt="Logo Consejo Académico Bolivariano Estadal" width="128" height="95" />
+            }
+        </div>
+
+        <p class="etiqueta">Trabajo de Grado</p>
+        <h1 class="acerca-titulo">@_sitio.TituloTesis</h1>
+
+        <dl class="ficha">
+            <div><dt>Autora</dt><dd>@_sitio.Autora</dd></div>
+            <div><dt>Tutora</dt><dd>@_sitio.Tutora</dd></div>
+            <div><dt>Universidad</dt><dd>@_sitio.Universidad (@_sitio.SiglasUniversidad)</dd></div>
+            <div><dt>Programa</dt><dd>@_sitio.Programa</dd></div>
+            <div><dt>Sede</dt><dd>@_sitio.Sede · @_sitio.Ciudad</dd></div>
+            <div><dt>Año</dt><dd>@_sitio.Anio</dd></div>
+        </dl>
+
+        <p class="acerca-nota">
+            Esta plataforma es un recurso informativo y de práctica asincrónica. No requiere registro:
+            las grabaciones de los <em>Speaking Challenges</em> se envían mediante un formulario de Google.
+        </p>
+    </article>
+}
+
+@code {
+    private Sitio? _sitio;
+    private string? _logoPrincipal;
+    private string? _logoSecundario;
+    private string? _error;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            var sitio = await Contenido.ObtenerSitioAsync();
+            if (!string.IsNullOrWhiteSpace(sitio.LogoPrincipal))
+                _logoPrincipal = (await Contenido.UrlAsync(sitio.LogoPrincipal)).ToString();
+            if (!string.IsNullOrWhiteSpace(sitio.LogoSecundario))
+                _logoSecundario = (await Contenido.UrlAsync(sitio.LogoSecundario)).ToString();
+            _sitio = sitio;
+        }
+        catch (Exception ex)
+        {
+            _error = ex.Message;
+        }
+    }
+}

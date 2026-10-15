@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 400" role="img" aria-labelledby="t">
+  <title id="t">Trapecio vocálico de las vocales puras del inglés</title>
+  <style>
+    .ipa { font-family: "Charis SIL", "Doulos SIL", "Arial Unicode MS", "Times New Roman", "Noto Serif", serif; font-size: 26px; fill: #0f2f5c; text-anchor: middle; }
+    .ej { font-family: Arial, Helvetica, sans-serif; font-size: 12px; fill: #5b6475; text-anchor: middle; font-style: italic; }
+    .eje { font-family: Arial, Helvetica, sans-serif; font-size: 13px; fill: #5b6475; font-weight: bold; }
+    .borde { fill: #f4f7fc; stroke: #1d4f91; stroke-width: 2.5; }
+    .guia { stroke: #b9c6dc; stroke-width: 1.2; stroke-dasharray: 5 5; fill: none; }
+  </style>
+  <rect width="560" height="400" fill="#ffffff"/>
+
+  <!-- Trapecio: esquinas (100,50) (500,50) (500,350) (300,350) -->
+  <polygon class="borde" points="100,50 500,50 500,350 300,350"/>
+  <!-- Guías horizontales: semicerrada y semiabierta -->
+  <line class="guia" x1="166.7" y1="150" x2="500" y2="150"/>
+  <line class="guia" x1="233.3" y1="250" x2="500" y2="250"/>
+  <!-- Guía central -->
+  <line class="guia" x1="300" y1="50" x2="400" y2="350"/>
+
+  <!-- Ejes -->
+  <text class="eje" x="100" y="32" text-anchor="middle">Anterior (Front)</text>
+  <text class="eje" x="300" y="32" text-anchor="middle">Central</text>
+  <text class="eje" x="500" y="32" text-anchor="middle">Posterior (Back)</text>
+  <text class="eje" x="90" y="55" text-anchor="end">Cerrada</text>
+  <text class="eje" x="156" y="155" text-anchor="end">Semicerrada</text>
+  <text class="eje" x="223" y="255" text-anchor="end">Semiabierta</text>
+  <text class="eje" x="290" y="355" text-anchor="end">Abierta</text>
+
+  <!-- Vocales anteriores -->
+  <text class="ipa" x="140" y="72">iː</text><text class="ej" x="140" y="88">see</text>
+  <text class="ipa" x="188" y="112">ɪ</text><text class="ej" x="188" y="128">sit</text>
+  <text class="ipa" x="225" y="190">e</text><text class="ej" x="225" y="206">ten</text>
+  <text class="ipa" x="310" y="318">æ</text><text class="ej" x="310" y="334">cat</text>
+
+  <!-- Vocales centrales -->
+  <text class="ipa" x="330" y="170">ɜː</text><text class="ej" x="330" y="186">bird</text>
+  <text class="ipa" x="345" y="225">ə</text><text class="ej" x="345" y="241">teacher</text>
+  <text class="ipa" x="395" y="285">ʌ</text><text class="ej" x="395" y="301">cup</text>
+
+  <!-- Vocales posteriores -->
+  <text class="ipa" x="470" y="72">uː</text><text class="ej" x="470" y="88">too</text>
+  <text class="ipa" x="420" y="112">ʊ</text><text class="ej" x="420" y="128">book</text>
+  <text class="ipa" x="470" y="225">ɔː</text><text class="ej" x="470" y="241">door</text>
+  <text class="ipa" x="435" y="335">ɑː</text><text class="ej" x="435" y="351">car</text>
+  <text class="ipa" x="480" y="335">ɒ</text><text class="ej" x="480" y="351">hot</text>
+
+  <text class="ej" x="280" y="388" style="font-style:normal">Ubicación aproximada de las vocales puras del inglés británico (RP).</text>
+</svg>

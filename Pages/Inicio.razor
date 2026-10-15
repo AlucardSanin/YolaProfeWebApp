@@ -1,0 +1,58 @@
+@page "/"
+@inject ContenidoService Contenido
+
+<PageTitle>@(_sitio?.NombrePlataforma ?? "Website de Fonética") · @_sitio?.SiglasUniversidad</PageTitle>
+
+@if (_sitio is null)
+{
+    <EstadoCarga Error="@_error" />
+}
+else
+{
+    <section class="portada">
+        <p class="etiqueta">@_sitio.Lema</p>
+        <Markdown Texto="@_bienvenida" Clase="prosa-portada" />
+        @if (_modulos.Count > 0)
+        {
+            <a class="boton boton-grande" href="@($"modulo/{_modulos[0].Id}")">Comenzar el Módulo @_modulos[0].Numero →</a>
+        }
+    </section>
+
+    <section aria-labelledby="titulo-modulos">
+        <h2 id="titulo-modulos" class="seccion-titulo">Módulos</h2>
+        <ol class="tarjetas">
+            @foreach (var modulo in _modulos)
+            {
+                <li>
+                    <a class="tarjeta" href="@($"modulo/{modulo.Id}")">
+                        <span class="tarjeta-numero">@modulo.Numero</span>
+                        <span class="tarjeta-titulo">@modulo.Titulo</span>
+                        <Markdown Texto="@modulo.Objetivo" Clase="tarjeta-texto" />
+                    </a>
+                </li>
+            }
+        </ol>
+    </section>
+}
+
+@code {
+    private Sitio? _sitio;
+    private List<Modulo> _modulos = [];
+    private string? _bienvenida;
+    private string? _error;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            var sitio = await Contenido.ObtenerSitioAsync();
+            _modulos = await Contenido.ObtenerModulosAsync();
+            _bienvenida = await Contenido.ObtenerTextoAsync("inicio.md");
+            _sitio = sitio;
+        }
+        catch (Exception ex)
+        {
+            _error = ex.Message;
+        }
+    }
+}

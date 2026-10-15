@@ -1,0 +1,21 @@
+{
+  "numero": 4,
+  "titulo": "Elementos Suprasegmentales",
+  "objetivo": "Aplicar correctamente el acento en la palabra, las terminaciones gramaticales, la entonación y el enlace entre palabras (*Linking*).",
+  "porQueImporta": "Un robot pronuncia palabras aisladas a la perfección, pero un hablante nativo tiene *ritmo*. Los elementos suprasegmentales son los que te dan esa fluidez, eliminan el acento robótico y garantizan la inteligibilidad global de tu discurso.",
+
+  "videos": [
+    { "titulo": "Word Stress in English", "fuente": "BBC Learning English", "youtubeId": "", "busqueda": "BBC Learning English word stress" },
+    { "titulo": "Connected Speech & Linking", "fuente": "Rachel's English", "youtubeId": "", "busqueda": "Rachel's English linking connected speech" }
+  ],
+
+  "enlaces": [
+    { "titulo": "Práctica recomendada: Shadowing", "url": "", "descripcion": "Escucha un podcast en inglés, pausa y repite imitando exactamente la melodía y el ritmo." }
+  ],
+
+  "reto": {
+    "titulo": "Speaking Challenge 4: The Final Flow",
+    "mensajeFinal": "¡Felicidades! Ya no solo produces sonidos, ahora fluyes con el idioma. Tu trabajo en esta plataforma ha terminado, ¡mucho éxito!",
+    "formularioUrl": ""
+  }
+}

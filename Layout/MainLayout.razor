@@ -1,3 +1,96 @@
-﻿@inherits LayoutComponentBase
+@inherits LayoutComponentBase
+@implements IDisposable
+@inject ContenidoService Contenido
+@inject NavigationManager Navegacion
 
-@Body
+<a class="saltar" href="#principal">Saltar al contenido</a>
+
+<header class="cabecera">
+    <div class="contenedor cabecera-fila">
+        <a class="marca" href="">
+            @if (_logoPrincipal is not null)
+            {
+                <img class="marca-logo" src="@_logoPrincipal" alt="Logo @_sitio?.SiglasUniversidad" width="34" height="52" />
+            }
+            <span class="marca-texto">
+                <span class="marca-nombre">@(_sitio?.NombrePlataforma ?? "Website de Fonética")</span>
+                <span class="marca-sub">@_sitio?.SiglasUniversidad · @_sitio?.Sede</span>
+            </span>
+        </a>
+
+        <button type="button" class="menu-boton" aria-expanded="@(_menuAbierto ? "true" : "false")"
+                aria-controls="menu-principal" @onclick="() => _menuAbierto = !_menuAbierto">
+            <span aria-hidden="true">☰</span> Menú
+        </button>
+
+        <nav id="menu-principal" class="menu @(_menuAbierto ? "abierto" : "")" aria-label="Principal">
+            <NavLink class="menu-enlace" href="" Match="NavLinkMatch.All">Inicio</NavLink>
+            @foreach (var modulo in _modulos)
+            {
+                <NavLink class="menu-enlace" href="@($"modulo/{modulo.Id}")" title="@modulo.Titulo">Módulo @modulo.Numero</NavLink>
+            }
+            <NavLink class="menu-enlace" href="acerca">Acerca de</NavLink>
+        </nav>
+    </div>
+</header>
+
+<main id="principal" class="contenedor principal">
+    @Body
+</main>
+
+<footer class="pie">
+    <div class="contenedor pie-fila">
+        <div class="pie-logos">
+            @if (_logoPrincipal is not null)
+            {
+                <img src="@_logoPrincipal" alt="Logo @_sitio?.SiglasUniversidad" width="40" height="61" loading="lazy" />
+            }
+            @if (_logoSecundario is not null)
+            {
+                <img src="@_logoSecundario" alt="Logo Consejo Académico Bolivariano Estadal" width="82" height="61" loading="lazy" />
+            }
+        </div>
+        @if (_sitio is not null)
+        {
+            <div class="pie-texto">
+                <p><strong>@_sitio.Universidad (@_sitio.SiglasUniversidad)</strong><br />@_sitio.Programa · @_sitio.Sede</p>
+                <p>Plataforma desarrollada como parte del Trabajo de Grado de <strong>@_sitio.Autora</strong>.
+                    Tutora: @_sitio.Tutora. @_sitio.Ciudad, @_sitio.Anio.</p>
+            </div>
+        }
+    </div>
+</footer>
+
+@code {
+    private Sitio? _sitio;
+    private List<Modulo> _modulos = [];
+    private string? _logoPrincipal;
+    private string? _logoSecundario;
+    private bool _menuAbierto;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Navegacion.LocationChanged += AlNavegar;
+        try
+        {
+            _sitio = await Contenido.ObtenerSitioAsync();
+            _modulos = await Contenido.ObtenerModulosAsync();
+            if (!string.IsNullOrWhiteSpace(_sitio.LogoPrincipal))
+                _logoPrincipal = (await Contenido.UrlAsync(_sitio.LogoPrincipal)).ToString();
+            if (!string.IsNullOrWhiteSpace(_sitio.LogoSecundario))
+                _logoSecundario = (await Contenido.UrlAsync(_sitio.LogoSecundario)).ToString();
+        }
+        catch
+        {
+            // Las páginas muestran el error en detalle; la cabecera queda con valores por defecto.
+        }
+    }
+
+    private void AlNavegar(object? sender, LocationChangedEventArgs e)
+    {
+        _menuAbierto = false;
+        StateHasChanged();
+    }
+
+    public void Dispose() => Navegacion.LocationChanged -= AlNavegar;
+}

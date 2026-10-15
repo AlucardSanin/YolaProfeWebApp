@@ -6,6 +6,10 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <OverrideHtmlAssetPlaceholders>true</OverrideHtmlAssetPlaceholders>
     <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
+    <!-- Reduce el tamaño de descarga (importante con conexiones lentas) -->
+    <BlazorWebAssemblyLoadAllGlobalizationData>false</BlazorWebAssemblyLoadAllGlobalizationData>
+    <!-- No recompilar el runtime nativo: no hace falta y evita requerir el workload wasm-tools -->
+    <WasmBuildNative>false</WasmBuildNative>
   </PropertyGroup>
 
   <ItemGroup>

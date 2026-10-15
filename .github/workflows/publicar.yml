@@ -1,0 +1,54 @@
+# Publica la plataforma en GitHub Pages cada vez que hay cambios en la rama main
+# (por ejemplo, cuando la autora edita un archivo de contenido desde github.com).
+name: Publicar en GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  compilar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Compilar
+        run: dotnet publish FoneticaUNEFM.csproj -c Release -o salida
+
+      - name: Ajustar ruta base para GitHub Pages
+        run: |
+          REPO="${GITHUB_REPOSITORY#*/}"
+          # Un repositorio "usuario.github.io" o un dominio propio se sirve desde la raíz.
+          if [[ "$REPO" == *.github.io ]]; then BASE="/"; else BASE="/$REPO/"; fi
+          sed -i "s#<base href=\"/\" />#<base href=\"$BASE\" />#" salida/wwwroot/index.html
+          # GitHub Pages devuelve 404.html para rutas como /modulo/modulo-1: se usa la misma app.
+          cp salida/wwwroot/index.html salida/wwwroot/404.html
+          touch salida/wwwroot/.nojekyll
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: salida/wwwroot
+
+  publicar:
+    needs: compilar
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.despliegue.outputs.page_url }}
+    steps:
+      - id: despliegue
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,21 @@
+{
+  "numero": 3,
+  "titulo": "El Sistema Consonántico",
+  "objetivo": "Articular correctamente los fonemas consonánticos según su modo, punto de articulación y sonoridad (*Voiced/Voiceless*).",
+  "porQueImporta": "Muchos estudiantes arrastran sonidos del español al inglés. Pronunciar una `/v/` como `/b/`, o una `/θ/` (th) como `/t/` o `/s/`, genera malentendidos y resta naturalidad al discurso.",
+
+  "videos": [
+    { "titulo": "Consonants in English", "fuente": "BBC Learning English", "youtubeId": "", "busqueda": "BBC Learning English consonant sounds" },
+    { "titulo": "How to pronounce TH /θ/ and /ð/", "fuente": "Rachel's English", "youtubeId": "", "busqueda": "Rachel's English TH sound" }
+  ],
+
+  "enlaces": [
+    { "titulo": "Lectura recomendada: terminaciones del pasado regular", "url": "", "descripcion": "Guía sobre terminaciones de verbos regulares en pasado (/t/, /d/, /ɪd/)." }
+  ],
+
+  "reto": {
+    "titulo": "Speaking Challenge 3: The Consonant Workout",
+    "mensajeFinal": "¡Siente la vibración en tu laringe! Esa es la verdadera esencia fonética del inglés.",
+    "formularioUrl": ""
+  }
+}

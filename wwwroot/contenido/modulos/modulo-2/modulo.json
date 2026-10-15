@@ -1,0 +1,21 @@
+{
+  "numero": 2,
+  "titulo": "El Sistema Vocálico del Inglés",
+  "objetivo": "Dominar los fonemas vocálicos anteriores, centrales, posteriores y los diptongos.",
+  "porQueImporta": "En español tenemos 5 vocales, pero el inglés tiene hasta 12 sonidos vocálicos puros y varios diptongos. Estirar o acortar una vocal de forma incorrecta cambia por completo el significado de la palabra (ej. *sheep* vs. *ship*, *bed* vs. *bad*).",
+
+  "videos": [
+    { "titulo": "English Vowel Sounds", "fuente": "Rachel's English", "youtubeId": "", "busqueda": "Rachel's English vowel sounds" },
+    { "titulo": "The Schwa Sound", "fuente": "BBC Learning English", "youtubeId": "", "busqueda": "BBC Learning English schwa sound" }
+  ],
+
+  "enlaces": [
+    { "titulo": "EnglishClub - Vowel Minimal Pairs", "url": "https://www.englishclub.com/pronunciation/minimal-pairs.htm", "descripcion": "Práctica interactiva: entrena tu oído con pares mínimos." }
+  ],
+
+  "reto": {
+    "titulo": "Speaking Challenge 2: The Minimal Pair Test",
+    "mensajeFinal": "¡Estirar o acortar una vocal hace toda la diferencia! Sigue afinando ese oído.",
+    "formularioUrl": ""
+  }
+}
