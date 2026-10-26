@@ -23,6 +23,7 @@ public class Sitio
     public string Anio { get; set; } = "";
     public string LogoPrincipal { get; set; } = "";
     public string LogoSecundario { get; set; } = "";
+    public string GoogleAnalyticsId { get; set; } = "";
     public string FormularioUrl { get; set; } = "";
     public string FormularioCampoModulo { get; set; } = "";
     public List<string> Modulos { get; set; } = [];
@@ -51,9 +52,20 @@ public class Video
 
 public class Enlace
 {
+    // "lectura", "practica" o "quiz": define en qué grupo se muestra.
+    public string Tipo { get; set; } = "lectura";
     public string Titulo { get; set; } = "";
     public string Url { get; set; } = "";
     public string Descripcion { get; set; } = "";
+    // true: se puede abrir en una ventana dentro de la plataforma (el sitio lo permite).
+    public bool Incrustar { get; set; }
+    // Dirección alternativa para mostrarlo dentro (vacío = se usa Url).
+    public string UrlIncrustada { get; set; } = "";
+
+    public string UrlVisor => string.IsNullOrWhiteSpace(UrlIncrustada) ? Url : UrlIncrustada;
+
+    public string Dominio =>
+        Uri.TryCreate(Url, UriKind.Absolute, out var uri) ? uri.Host.Replace("www.", "") : "";
 }
 
 public class Reto

@@ -1,21 +1,43 @@
 {
   "numero": 4,
-  "titulo": "Elementos Suprasegmentales",
-  "objetivo": "Aplicar correctamente el acento en la palabra, las terminaciones gramaticales, la entonación y el enlace entre palabras (*Linking*).",
-  "porQueImporta": "Un robot pronuncia palabras aisladas a la perfección, pero un hablante nativo tiene *ritmo*. Los elementos suprasegmentales son los que te dan esa fluidez, eliminan el acento robótico y garantizan la inteligibilidad global de tu discurso.",
+  "titulo": "Elementos Suprasegmentales (Acento, Entonación y Ritmo)",
+  "objetivo": "Aplicar patrones de acentuación léxica (*Word Stress*), entonación, ritmo isócrono y enlace de palabras (*Linking / Connected Speech*).",
+  "porQueImporta": "Proporciona fluidez natural y cohesión rítmica al discurso oral, evitando la entonación plana o robótica.",
 
-  "videos": [
-    { "titulo": "Word Stress in English", "fuente": "BBC Learning English", "youtubeId": "", "busqueda": "BBC Learning English word stress" },
-    { "titulo": "Connected Speech & Linking", "fuente": "Rachel's English", "youtubeId": "", "busqueda": "Rachel's English linking connected speech" }
-  ],
+  // Sin videos por ahora. Para agregar uno: { "titulo": "…", "fuente": "…", "youtubeId": "…" }
+  "videos": [],
 
   "enlaces": [
-    { "titulo": "Práctica recomendada: Shadowing", "url": "", "descripcion": "Escucha un podcast en inglés, pausa y repite imitando exactamente la melodía y el ritmo." }
+    {
+      "tipo": "lectura",
+      "titulo": "El ritmo invisible del inglés: dominando la entonación y el acento tónico",
+      "url": "https://lingualcn.com/fonetica-y-pronunciacion/el-ritmo-invisible-del-ingles-dominando-la-entonacion-y-el-acento-tonico/",
+      "descripcion": "Artículo de estudio sobre entonación y acento tónico."
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Word Stress Quiz",
+      "url": "https://www.englishclub.com/pronunciation/word-stress-quiz.php",
+      "descripcion": "Quiz de acentuación léxica (EnglishClub)."
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Ejercicios de pronunciación en línea",
+      "url": "https://www.esl-lounge.com/student/pronunciation-3.php",
+      "incrustar": true,
+      "descripcion": "Ejercicios de pronunciación (ESL Lounge)."
+    },
+    {
+      "tipo": "practica",
+      "titulo": "Práctica recomendada: Shadowing",
+      "url": "",
+      "descripcion": "Escucha un podcast en inglés, pausa y repite imitando exactamente la melodía y el ritmo."
+    }
   ],
 
   "reto": {
     "titulo": "Speaking Challenge 4: The Final Flow",
     "mensajeFinal": "¡Felicidades! Ya no solo produces sonidos, ahora fluyes con el idioma. Tu trabajo en esta plataforma ha terminado, ¡mucho éxito!",
-    "formularioUrl": ""
+    "formularioUrl": "https://forms.gle/9WR7yHTfhaeGWRJM9"
   }
 }

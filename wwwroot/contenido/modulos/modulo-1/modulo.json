@@ -1,26 +1,50 @@
 {
   "numero": 1,
-  "titulo": "Fonética Articulatoria",
-  "objetivo": "Conocer la anatomía de tu propia pronunciación.",
-  "porQueImporta": "El inglés utiliza músculos y posiciones de la boca que el español no usa. Si no sabes de dónde sale el sonido (pulmones, laringe, lengua, paladar), no podrás moldearlo correctamente. ¡Conocer tu instrumento es el primer paso!",
+  "titulo": "Fonética Articulatoria y Órganos del Habla",
+  "objetivo": "Conocer la anatomía y fisiología de la producción del habla en inglés, identificando los articuladores activos y pasivos.",
+  "porQueImporta": "El inglés utiliza configuraciones musculares y puntos de articulación distintos al español. Reconocer el origen del flujo de aire y los puntos de contacto es la base para corregir la interferencia de la L1.",
 
-  // Videos de YouTube. Para mostrar el video dentro de la página, coloque en "youtubeId"
-  // el código que aparece en el enlace del video: https://www.youtube.com/watch?v=ESTE_CODIGO
-  // Si "youtubeId" está vacío, se muestra un botón para buscar el video en YouTube.
+  // Videos de YouTube. En "youtubeId" va el código que aparece en el enlace del video:
+  // https://www.youtube.com/watch?v=ESTE_CODIGO   (los videos se ven dentro de la plataforma)
   "videos": [
-    { "titulo": "The Speech Organs", "fuente": "BBC Learning English", "youtubeId": "", "busqueda": "Speech Organs BBC Learning English" }
+    { "titulo": "Speech Organs Overview", "fuente": "Keys to English", "youtubeId": "gsTzEqM-MDc" },
+    { "titulo": "Articulators in Action", "fuente": "Lit Lounge", "youtubeId": "lp-7KE347Pw" },
+    { "titulo": "Anatomy of Phonetics", "fuente": "Speech Secrets", "youtubeId": "NRxsl02RdFU" }
   ],
 
-  // Enlaces recomendados. Si "url" está vacío, se muestra solo como recomendación.
+  // Recursos externos. "tipo" decide en qué grupo aparece:
+  //   "lectura"  -> Lecturas de apoyo
+  //   "practica" -> Prácticas interactivas
+  //   "quiz"     -> Quizzes y juegos
+  // "incrustar": true  -> se abre en una ventana dentro de la plataforma (solo si el sitio lo permite).
+  // "urlIncrustada"    -> opcional, dirección especial para mostrarlo dentro (ej. la versión "juego" de Educaplay).
   "enlaces": [
-    { "titulo": "Sounds of Speech (University of Iowa)", "url": "https://soundsofspeech.uiowa.edu/english", "descripcion": "Práctica interactiva: explora la anatomía vocal." }
+    {
+      "tipo": "lectura",
+      "titulo": "The Organs of Speech and Their Functions",
+      "url": "https://www.withinnigeria.com/piece/2024/10/06/the-organs-of-speech-and-their-functions/",
+      "descripcion": "Artículo técnico sobre los órganos del habla y su función."
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Human Speech System Quiz",
+      "url": "https://www.englishclub.com/pronunciation/speech-system-quiz.php",
+      "descripcion": "Cuestionario de diagnóstico teórico: selección múltiple con respuestas (EnglishClub)."
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Mapa interactivo: Speech Organs",
+      "url": "https://es.educaplay.com/recursos-educativos/9825516-speech_organs.html",
+      "urlIncrustada": "https://es.educaplay.com/juego/9825516-speech_organs.html",
+      "incrustar": true,
+      "descripcion": "Ubica los órganos del habla en el diagrama (Educaplay)."
+    }
   ],
 
   // El texto del reto (instrucciones y texto a leer) está en el archivo reto.md
   "reto": {
     "titulo": "Speaking Challenge 1: The Diagnostic Read",
     "mensajeFinal": "¡Excelente trabajo! Has dado el primer paso: conocer tu propio instrumento.",
-    // Opcional: formulario distinto solo para este módulo (vacío = se usa el de sitio.json).
-    "formularioUrl": ""
+    "formularioUrl": "https://forms.gle/y6r5HKyGHSAQFuyb9"
   }
 }

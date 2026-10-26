@@ -1,7 +1,9 @@
 @*
-    Carga diferida: solo se muestra la miniatura (unos pocos KB). El reproductor de YouTube
-    (que pesa bastante) se descarga únicamente cuando el estudiante pulsa "Reproducir".
+    El video se reproduce dentro de la plataforma. Para ahorrar datos, al principio solo se
+    descarga la miniatura (unos pocos KB); el reproductor de YouTube se carga al pulsar "Reproducir".
 *@
+@inject AnaliticaService Analitica
+
 <figure class="video">
     @if (string.IsNullOrWhiteSpace(Video.YoutubeId))
     {
@@ -13,15 +15,15 @@
     else if (_reproduciendo)
     {
         <div class="video-marco">
-            <iframe src="https://www.youtube-nocookie.com/embed/@(Video.YoutubeId)?autoplay=1&rel=0"
+            <iframe src="https://www.youtube-nocookie.com/embed/@(Video.YoutubeId)?autoplay=1&rel=0&modestbranding=1&playsinline=1"
                     title="@Video.Titulo"
-                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; fullscreen"
                     allowfullscreen></iframe>
         </div>
     }
     else
     {
-        <button type="button" class="video-marco video-portada" @onclick="() => _reproduciendo = true"
+        <button type="button" class="video-marco video-portada" @onclick="ReproducirAsync"
                 aria-label="Reproducir video: @Video.Titulo">
             <img src="https://i.ytimg.com/vi/@(Video.YoutubeId)/hqdefault.jpg" alt="" loading="lazy" decoding="async" />
             <span class="video-play" aria-hidden="true">▶</span>
@@ -38,8 +40,15 @@
 
 @code {
     [Parameter, EditorRequired] public Video Video { get; set; } = default!;
+    [Parameter] public int Modulo { get; set; }
 
     private bool _reproduciendo;
+
+    private async Task ReproducirAsync()
+    {
+        _reproduciendo = true;
+        await Analitica.EventoAsync("reproducir_video", new { modulo = Modulo, video = Video.Titulo, youtube_id = Video.YoutubeId });
+    }
 
     private string UrlBusqueda =>
         "https://www.youtube.com/results?search_query=" +

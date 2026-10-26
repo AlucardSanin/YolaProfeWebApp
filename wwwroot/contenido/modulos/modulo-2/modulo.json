@@ -1,21 +1,49 @@
 {
   "numero": 2,
   "titulo": "El Sistema Vocálico del Inglés",
-  "objetivo": "Dominar los fonemas vocálicos anteriores, centrales, posteriores y los diptongos.",
-  "porQueImporta": "En español tenemos 5 vocales, pero el inglés tiene hasta 12 sonidos vocálicos puros y varios diptongos. Estirar o acortar una vocal de forma incorrecta cambia por completo el significado de la palabra (ej. *sheep* vs. *ship*, *bed* vs. *bad*).",
+  "objetivo": "Dominar y diferenciar la articulación de los fonemas vocálicos anteriores, centrales, posteriores y los diptongos del inglés.",
+  "porQueImporta": "El español posee solo 5 sonidos vocálicos puros, mientras que el inglés cuenta con 12 vocales monoftongas y diversos diptongos. La variación en duración y tensión vocálica cambia drásticamente el significado de las palabras (ej. *sheep* vs. *ship*, *bed* vs. *bad*).",
 
-  "videos": [
-    { "titulo": "English Vowel Sounds", "fuente": "Rachel's English", "youtubeId": "", "busqueda": "Rachel's English vowel sounds" },
-    { "titulo": "The Schwa Sound", "fuente": "BBC Learning English", "youtubeId": "", "busqueda": "BBC Learning English schwa sound" }
-  ],
+  // Sin videos por ahora. Para agregar uno: { "titulo": "…", "fuente": "…", "youtubeId": "…" }
+  "videos": [],
 
   "enlaces": [
-    { "titulo": "EnglishClub - Vowel Minimal Pairs", "url": "https://www.englishclub.com/pronunciation/minimal-pairs.htm", "descripcion": "Práctica interactiva: entrena tu oído con pares mínimos." }
+    {
+      "tipo": "lectura",
+      "titulo": "Tabla interactiva de sonidos vocálicos con audio",
+      "url": "https://www.learnenglishsounds.com/es/blog/tabla-sonidos-vocalicos-ingles-con-audio",
+      "descripcion": "Cuadro de las vocales del inglés con su pronunciación (LearnEnglishSounds)."
+    },
+    {
+      "tipo": "lectura",
+      "titulo": "Guía comparativa: vocales en inglés vs. español",
+      "url": "https://trasteandoenlaescuela.com/vocales-ingles-espanol/",
+      "descripcion": "Diferencias entre el sistema vocálico del inglés y el del español."
+    },
+    {
+      "tipo": "practica",
+      "titulo": "Práctica de pronunciación vocálica",
+      "url": "https://www.learnenglishsounds.com/es/practice/pronunciation/vowels",
+      "descripcion": "Escucha y repite cada sonido vocálico (LearnEnglishSounds)."
+    },
+    {
+      "tipo": "practica",
+      "titulo": "Entrenamiento en pares mínimos (Minimal Pairs)",
+      "url": "https://www.learnenglishsounds.com/es/practice/minimal-pairs",
+      "descripcion": "Discriminación auditiva entre palabras que solo cambian en un sonido."
+    },
+    {
+      "tipo": "practica",
+      "titulo": "Ejercicios con símbolos fonéticos",
+      "url": "https://agendaweb.org/exercises/phonetic/phonetic-symbols-1.htm",
+      "incrustar": true,
+      "descripcion": "Relaciona cada símbolo del AFI con su sonido (Agendaweb)."
+    }
   ],
 
   "reto": {
     "titulo": "Speaking Challenge 2: The Minimal Pair Test",
     "mensajeFinal": "¡Estirar o acortar una vocal hace toda la diferencia! Sigue afinando ese oído.",
-    "formularioUrl": ""
+    "formularioUrl": "https://forms.gle/PeCfXuf3uLyi9C9s8"
   }
 }

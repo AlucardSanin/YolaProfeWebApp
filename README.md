@@ -2,12 +2,16 @@
 
 Plataforma informativa de entrenamiento fonético (EVA) para estudiantes del Programa de
 Educación en Lengua Extranjera Mención Inglés de la UNEFM, municipalización Carirubana.
-Desarrollada como parte del Trabajo de Grado de **Br. Yolanny Gomez** (tutora: Lcda. Karibel Velasco).
+Desarrollada como parte del Trabajo de Grado de **Br. Yolanny Gómez** (tutora: Lcda. Karibel Velasco).
 
 - **Sin backend:** Blazor WebAssembly standalone. Es un sitio estático que se puede alojar en
   GitHub Pages, Netlify, Azure Static Web Apps o cualquier hosting.
-- **Sin seguimiento de estudiantes:** no hay usuarios ni base de datos. Las grabaciones de
-  los *Speaking Challenges* se envían por un formulario de Google.
+- **Sin cuentas de usuario:** no hay registro ni base de datos. Las grabaciones de los
+  *Speaking Challenges* se envían por un formulario de Google por módulo. Las métricas de uso
+  (Log Data de la tesis) se registran con Google Analytics 4 si se configura
+  `googleAnalyticsId` en `sitio.json`.
+- **Sin salir del sitio:** los videos de YouTube se reproducen en la página y los recursos que
+  lo permiten (`"incrustar": true`) se abren en una ventana interna.
 - **Contenido editable sin programar:** textos en Markdown y datos en JSON dentro de
   `wwwroot/contenido`. Ver [GUIA-CONTENIDO.md](GUIA-CONTENIDO.md).
 - **Pensado para conexiones lentas:** PWA con caché offline de la aplicación, videos de

@@ -1,5 +1,7 @@
 @page "/modulo/{Id}"
 @inject ContenidoService Contenido
+@inject AnaliticaService Analitica
+@inject IJSRuntime JS
 
 <PageTitle>@(_modulo is null ? "Módulo" : $"Módulo {_modulo.Numero}: {_modulo.Titulo}") · @_sitio?.NombrePlataforma</PageTitle>
 
@@ -20,6 +22,13 @@ else
         <header class="modulo-cabecera">
             <p class="etiqueta">Módulo @_modulo.Numero de @_total</p>
             <h1>@_modulo.Titulo</h1>
+            <nav class="indice" aria-label="Secciones del módulo">
+                @foreach (var (id, texto) in _secciones)
+                {
+                    <button type="button" class="indice-chip @(id == "reto" ? "indice-chip-reto" : "")"
+                            @onclick="() => IrAAsync(id)">@texto</button>
+                }
+            </nav>
         </header>
 
         <div class="objetivos">
@@ -35,59 +44,55 @@ else
 
         @if (!string.IsNullOrWhiteSpace(_teoria))
         {
-            <section class="bloque">
-                <h2 class="seccion-titulo">Puntos clave</h2>
+            <section class="bloque" id="teoria">
+                <h2 class="seccion-titulo">📘 Puntos clave</h2>
                 <Markdown Texto="@_teoria" Carpeta="@_carpeta" />
             </section>
         }
 
-        @if (_modulo.Videos.Count > 0 || _modulo.Enlaces.Count > 0)
+        @if (_modulo.Videos.Count > 0)
         {
-            <section class="bloque">
-                <h2 class="seccion-titulo">Multimedia y enlaces</h2>
-                @if (_modulo.Videos.Count > 0)
-                {
-                    <div class="videos">
-                        @foreach (var video in _modulo.Videos)
-                        {
-                            <VideoYoutube Video="video" />
-                        }
-                    </div>
-                }
-                @if (_modulo.Enlaces.Count > 0)
-                {
-                    <ul class="enlaces">
-                        @foreach (var enlace in _modulo.Enlaces)
-                        {
-                            <li>
-                                @if (string.IsNullOrWhiteSpace(enlace.Url))
-                                {
-                                    <strong>@enlace.Titulo</strong>
-                                }
-                                else
-                                {
-                                    <a href="@enlace.Url" target="_blank" rel="noopener"><strong>@enlace.Titulo</strong> ↗</a>
-                                }
-                                @if (!string.IsNullOrWhiteSpace(enlace.Descripcion))
-                                {
-                                    <span class="enlace-descripcion">@enlace.Descripcion</span>
-                                }
-                            </li>
-                        }
-                    </ul>
-                }
+            <section class="bloque" id="videos">
+                <h2 class="seccion-titulo">🎬 Videos de apoyo</h2>
+                <p class="bloque-nota">Los videos se reproducen aquí mismo, sin salir de la plataforma.</p>
+                <div class="videos">
+                    @foreach (var video in _modulo.Videos)
+                    {
+                        <VideoYoutube Video="video" Modulo="_modulo.Numero" />
+                    }
+                </div>
             </section>
         }
 
-        <section class="reto" aria-labelledby="titulo-reto">
+        @foreach (var grupo in _grupos)
+        {
+            <section class="bloque" id="@grupo.Id">
+                <h2 class="seccion-titulo">@grupo.Titulo</h2>
+                <ul class="recursos">
+                    @foreach (var enlace in grupo.Enlaces)
+                    {
+                        <TarjetaRecurso Enlace="enlace" Modulo="_modulo.Numero" OnAbrirAqui="e => _visor = e" />
+                    }
+                </ul>
+            </section>
+        }
+
+        <section class="reto" id="reto" aria-labelledby="titulo-reto">
             <p class="etiqueta etiqueta-reto">🎯 Actividad evaluativa</p>
             <h2 id="titulo-reto">@_modulo.Reto.Titulo</h2>
             <Markdown Texto="@_reto" Carpeta="@_carpeta" />
 
+            <ol class="pasos">
+                <li><strong>Graba</strong> tu audio con el teléfono (.mp3, .m4a o .wav).</li>
+                <li><strong>Abre el formulario</strong> e inicia sesión con tu cuenta de Google (Gmail): Google lo pide para poder adjuntar archivos.</li>
+                <li><strong>Completa tus datos, adjunta el audio y pulsa "Enviar".</strong> Luego puedes volver a esta pestaña.</li>
+            </ol>
+
             @if (_urlFormulario is not null)
             {
-                <a class="boton boton-grande boton-reto" href="@_urlFormulario" target="_blank" rel="noopener">Subir audio aquí ↗</a>
-                <p class="reto-nota">Se abrirá un formulario de Google. Completa tus datos y adjunta tu grabación.</p>
+                <a class="boton boton-grande boton-reto" href="@_urlFormulario" target="_blank" rel="noopener"
+                   @onclick="AbrirFormularioAsync">Abrir el formulario y subir mi audio ↗</a>
+                <p class="reto-nota">El formulario se abre en una pestaña nueva; esta página queda abierta.</p>
             }
             else
             {
@@ -103,22 +108,37 @@ else
         <nav class="paginacion" aria-label="Módulos">
             @if (_anterior is not null)
             {
-                <a class="paginacion-enlace" href="@($"modulo/{_anterior.Id}")">← Módulo @_anterior.Numero: @_anterior.Titulo</a>
+                <a class="paginacion-enlace" href="@($"modulo/{_anterior.Id}")">
+                    <span class="paginacion-etiqueta">← Anterior</span>Módulo @_anterior.Numero: @_anterior.Titulo
+                </a>
             }
             else
             {
-                <a class="paginacion-enlace" href="">← Inicio</a>
+                <a class="paginacion-enlace" href=""><span class="paginacion-etiqueta">← Volver</span>Inicio</a>
             }
             @if (_siguiente is not null)
             {
-                <a class="paginacion-enlace paginacion-siguiente" href="@($"modulo/{_siguiente.Id}")">Módulo @_siguiente.Numero: @_siguiente.Titulo →</a>
+                <a class="paginacion-enlace paginacion-siguiente" href="@($"modulo/{_siguiente.Id}")">
+                    <span class="paginacion-etiqueta">Siguiente →</span>Módulo @_siguiente.Numero: @_siguiente.Titulo
+                </a>
             }
         </nav>
     </article>
+
+    <VisorRecurso Enlace="_visor" OnCerrar="() => _visor = null" />
 }
 
 @code {
     [Parameter] public string Id { get; set; } = "";
+
+    private record Grupo(string Id, string Titulo, string Indice, List<Enlace> Enlaces);
+
+    private static readonly (string Tipo, string Titulo, string Indice)[] TiposRecurso =
+    [
+        ("lectura", "📖 Lecturas de apoyo", "Lecturas"),
+        ("practica", "🎧 Prácticas interactivas", "Prácticas"),
+        ("quiz", "✅ Quizzes y juegos", "Quizzes"),
+    ];
 
     private Sitio? _sitio;
     private Modulo? _modulo;
@@ -131,10 +151,14 @@ else
     private string? _urlFormulario;
     private string? _error;
     private bool _noEncontrado;
+    private Enlace? _visor;
+    private List<Grupo> _grupos = [];
+    private List<(string Id, string Texto)> _secciones = [];
 
     protected override async Task OnParametersSetAsync()
     {
         _modulo = null;
+        _visor = null;
         _error = null;
         _noEncontrado = false;
         try
@@ -159,6 +183,21 @@ else
             _teoria = await teoria;
             _reto = await reto;
             _urlFormulario = ContenidoService.UrlFormulario(_sitio, modulo);
+
+            // Los tipos desconocidos se muestran como lecturas.
+            var conocidos = TiposRecurso.Select(t => t.Tipo).ToHashSet();
+            string TipoDe(Enlace e) => conocidos.Contains(e.Tipo?.Trim().ToLowerInvariant() ?? "") ? e.Tipo!.Trim().ToLowerInvariant() : "lectura";
+            _grupos = TiposRecurso
+                .Select(t => new Grupo(t.Tipo, t.Titulo, t.Indice, modulo.Enlaces.Where(e => TipoDe(e) == t.Tipo).ToList()))
+                .Where(g => g.Enlaces.Count > 0)
+                .ToList();
+
+            _secciones = [];
+            if (!string.IsNullOrWhiteSpace(_teoria)) _secciones.Add(("teoria", "Teoría"));
+            if (modulo.Videos.Count > 0) _secciones.Add(("videos", "Videos"));
+            _secciones.AddRange(_grupos.Select(g => (g.Id, g.Indice)));
+            _secciones.Add(("reto", "🎯 Speaking Challenge"));
+
             _modulo = modulo;
         }
         catch (Exception ex)
@@ -166,4 +205,9 @@ else
             _error = ex.Message;
         }
     }
+
+    private async Task IrAAsync(string id) => await JS.InvokeVoidAsync("fonetica.irA", id);
+
+    private async Task AbrirFormularioAsync() =>
+        await Analitica.EventoAsync("abrir_formulario", new { modulo = _modulo?.Numero, reto = _modulo?.Reto.Titulo });
 }

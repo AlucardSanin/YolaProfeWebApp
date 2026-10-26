@@ -1,0 +1,57 @@
+@* Un recurso externo (lectura, práctica o quiz). *@
+@inject AnaliticaService Analitica
+
+<li class="recurso">
+    <span class="recurso-icono" aria-hidden="true">@Icono</span>
+    <div class="recurso-texto">
+        <strong class="recurso-titulo">@Enlace.Titulo</strong>
+        @if (!string.IsNullOrWhiteSpace(Enlace.Descripcion))
+        {
+            <span class="recurso-descripcion">@Enlace.Descripcion</span>
+        }
+        @if (!string.IsNullOrWhiteSpace(Enlace.Dominio))
+        {
+            <span class="recurso-dominio">@Enlace.Dominio</span>
+        }
+    </div>
+    @if (!string.IsNullOrWhiteSpace(Enlace.Url))
+    {
+        <div class="recurso-acciones">
+            @if (Enlace.Incrustar)
+            {
+                <button type="button" class="boton boton-pequeno" @onclick="AbrirAquiAsync">Abrir aquí</button>
+                <a class="boton boton-pequeno boton-secundario" href="@Enlace.Url" target="_blank" rel="noopener"
+                   @onclick="AbrirPestanaAsync" title="Abrir en una pestaña nueva" aria-label="@($"{Enlace.Titulo} (pestaña nueva)")">↗</a>
+            }
+            else
+            {
+                <a class="boton boton-pequeno boton-secundario" href="@Enlace.Url" target="_blank" rel="noopener"
+                   @onclick="AbrirPestanaAsync">Abrir ↗</a>
+            }
+        </div>
+    }
+</li>
+
+@code {
+    [Parameter, EditorRequired] public Enlace Enlace { get; set; } = default!;
+    [Parameter] public int Modulo { get; set; }
+    [Parameter] public EventCallback<Enlace> OnAbrirAqui { get; set; }
+
+    private string Icono => Enlace.Tipo switch
+    {
+        "practica" => "🎧",
+        "quiz" => "✅",
+        _ => "📖",
+    };
+
+    private async Task AbrirAquiAsync()
+    {
+        await OnAbrirAqui.InvokeAsync(Enlace);
+        await Registrar("dentro");
+    }
+
+    private Task AbrirPestanaAsync() => Registrar("pestana_nueva");
+
+    private async Task Registrar(string modo) =>
+        await Analitica.EventoAsync("abrir_recurso", new { modulo = Modulo, tipo = Enlace.Tipo, recurso = Enlace.Titulo, modo });
+}

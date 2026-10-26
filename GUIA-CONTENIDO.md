@@ -61,11 +61,12 @@ Son listas de datos entre comillas. Reglas importantes:
 3. Péguelo en `"youtubeId"` dentro del `modulo.json` del módulo:
 
 ```json
-{ "titulo": "The Speech Organs", "fuente": "BBC Learning English", "youtubeId": "AbC123xyz", "busqueda": "" }
+{ "titulo": "Speech Organs Overview", "fuente": "Keys to English", "youtubeId": "AbC123xyz" }
 ```
 
-Mientras `"youtubeId"` esté vacío, la página muestra un botón "Buscar en YouTube".
-Los videos solo se descargan cuando el estudiante pulsa "Reproducir" (ahorra datos).
+Los videos se reproducen dentro de la plataforma, sin salir del sitio. Para ahorrar datos, solo
+se descarga el video cuando el estudiante pulsa "Reproducir". Si un módulo no tiene videos,
+deje la lista vacía: `"videos": []` y la sección no aparece.
 
 ### Agregar otro video o enlace
 
@@ -73,19 +74,54 @@ Copie una línea completa `{ … }`, péguela debajo y separe ambas con una coma
 
 ```json
 "videos": [
-  { "titulo": "Video 1", "fuente": "…", "youtubeId": "…", "busqueda": "" },
-  { "titulo": "Video 2", "fuente": "…", "youtubeId": "…", "busqueda": "" }
+  { "titulo": "Video 1", "fuente": "…", "youtubeId": "…" },
+  { "titulo": "Video 2", "fuente": "…", "youtubeId": "…" }
 ],
 ```
 
+### Lecturas, prácticas y quizzes (`"enlaces"`)
+
+Cada recurso externo lleva un `"tipo"` que decide en qué sección aparece:
+
+| `"tipo"`      | Sección                   |
+|---------------|---------------------------|
+| `"lectura"`   | 📖 Lecturas de apoyo      |
+| `"practica"`  | 🎧 Prácticas interactivas |
+| `"quiz"`      | ✅ Quizzes y juegos       |
+
+```json
+{
+  "tipo": "practica",
+  "titulo": "Ejercicios con símbolos fonéticos",
+  "url": "https://agendaweb.org/exercises/phonetic/phonetic-symbols-1.htm",
+  "incrustar": true,
+  "descripcion": "Relaciona cada símbolo del AFI con su sonido (Agendaweb)."
+}
+```
+
+- `"incrustar": true` muestra el botón **Abrir aquí**, que abre el sitio en una ventana dentro
+  de la plataforma. **Úselo solo si el sitio lo permite**: muchos sitios (EnglishClub,
+  LearnEnglishSounds, PurposeGames) bloquean esto y la ventana quedaría en blanco. Si no está
+  segura, no lo ponga: el recurso se abrirá en una pestaña nueva.
+- `"urlIncrustada"` (opcional): una dirección distinta para la ventana interna. Por ejemplo,
+  en Educaplay la versión para insertar es `…/juego/…` en lugar de `…/recursos-educativos/…`.
+- Si `"url"` está vacío, el recurso aparece como recomendación sin botón (ej. *Shadowing*).
+
 ## 4. Formulario de Google para las grabaciones
+
+Cada módulo tiene su propio formulario en su `modulo.json` → `"reto"` → `"formularioUrl"`.
+El botón abre el formulario en una **pestaña nueva**: como los formularios piden iniciar sesión
+con Google para adjuntar el audio, Google no permite completarlos dentro de otra página.
+
+Para crear un formulario nuevo:
 
 1. Cree un formulario en [forms.google.com](https://forms.google.com) con:
    - Nombre y apellido, Cédula, Sección (respuesta corta).
    - **Módulo** (desplegable: Módulo 1, Módulo 2, Módulo 3, Módulo 4).
    - **Grabación** (pregunta tipo *Subir archivo* → permitir solo *Audio*; tamaño máximo 10 MB).
 2. Pulse **Enviar** → ícono de enlace 🔗 → copie el enlace.
-3. Péguelo en `sitio.json`, en `"formularioUrl"`.
+3. Péguelo en el `"formularioUrl"` del `"reto"` del módulo (o en `sitio.json` para usar
+   uno general en todos los módulos).
 
 > Nota: Google exige que el estudiante inicie sesión con una cuenta de Google para subir
 > archivos. Las grabaciones quedan en su Google Drive, en una carpeta del formulario.
@@ -95,24 +131,33 @@ prellenado*, elija "Módulo 1" y pulse *Obtener enlace*. En el enlace aparecerá
 `entry.123456789=Módulo+1`. Copie solo `entry.123456789` en `"formularioCampoModulo"` de
 `sitio.json`. Así, cada botón abre el formulario con su módulo ya marcado.
 
-Si un módulo necesita un formulario distinto, péguelo en `"formularioUrl"` dentro del
-`"reto"` de su `modulo.json`.
 
 ## 5. Imágenes
 
-- Guarde la imagen dentro de la carpeta del módulo (ej. `modulos/modulo-1/aparato-fonador.jpg`).
-- Úsela en `teoria.md` con `![Descripción de la imagen](aparato-fonador.jpg)`.
+- Guarde la imagen dentro de la carpeta del módulo (ej. `modulos/modulo-1/tracto-vocal.jpg`).
+- Úsela en `teoria.md` con `![Descripción de la imagen](tracto-vocal.jpg)`.
 - Use imágenes livianas (menos de 300 KB). Puede reducirlas en [squoosh.app](https://squoosh.app).
-- Pendiente: la imagen del aparato fonador del Módulo 1 es un espacio reservado
-  (`modulo-1/aparato-fonador.svg`). Reemplácela por la imagen definitiva.
 
-## 6. Agregar un módulo nuevo
+## 6. Google Analytics 4 (métricas de la tesis)
+
+La plataforma envía a Google Analytics las páginas visitadas, el tiempo de permanencia y estos
+eventos: `reproducir_video`, `abrir_recurso` (lecturas, prácticas, quizzes) y `abrir_formulario`.
+
+1. En [analytics.google.com](https://analytics.google.com) cree una propiedad GA4 y un flujo
+   de datos *Web* con la dirección de la plataforma.
+2. Copie el **ID de medición** (empieza por `G-`).
+3. Péguelo en `sitio.json`, en `"googleAnalyticsId"`.
+
+Para ver los eventos como columnas en los informes, en GA4 vaya a *Administrar → Definiciones
+personalizadas* y cree dimensiones para los parámetros `modulo`, `video`, `recurso` y `tipo`.
+
+## 7. Agregar un módulo nuevo
 
 1. Copie la carpeta `modulo-4` y cámbiele el nombre (ej. `modulo-5`).
 2. Edite sus archivos `modulo.json`, `teoria.md` y `reto.md`.
 3. En `sitio.json`, agregue `"modulo-5"` a la lista `"modulos"`.
 
-## 7. Cómo publicar los cambios
+## 8. Cómo publicar los cambios
 
 ### Opción A (recomendada): editar directamente en GitHub
 

@@ -10,7 +10,7 @@
   "sede": "Municipalización Carirubana",
   "ciudad": "Punto Fijo, estado Falcón",
   "tituloTesis": "Website de fonética como herramienta tecnológica para el desarrollo de la producción oral en estudiantes del Programa de Educación en Lengua Extranjera Mención Inglés de la UNEFM Carirubana",
-  "autora": "Br. Yolanny Gomez",
+  "autora": "Br. Yolanny Gómez",
   "tutora": "Lcda. Karibel Velasco",
   "anio": "2026",
 
@@ -18,9 +18,14 @@
   "logoPrincipal": "imagenes/logo-unefm.png",
   "logoSecundario": "imagenes/logo-consejo-academico.png",
 
+  // ===== Google Analytics 4 (registro de visitas para la tesis) =====
+  // Pegue aquí el "ID de medición" de la propiedad GA4 (empieza por "G-", ej. "G-ABC123XYZ").
+  // Mientras esté vacío, no se carga Google Analytics.
+  "googleAnalyticsId": "",
+
   // ===== Formulario de Google para subir las grabaciones =====
-  // Pegue aquí el enlace del formulario (botón "Enviar" > ícono de enlace en Google Forms).
-  // Mientras esté vacío, el botón aparecerá como "Formulario no disponible todavía".
+  // Formulario general. Cada módulo tiene el suyo en su modulo.json ("reto" > "formularioUrl"),
+  // que tiene prioridad sobre este. Si ambos están vacíos, el botón aparece como "no disponible".
   "formularioUrl": "",
   // Opcional: identificador de la pregunta "Módulo" del formulario (ej. "entry.123456789")
   // para que el formulario se abra con el módulo ya seleccionado. Puede dejarse vacío.

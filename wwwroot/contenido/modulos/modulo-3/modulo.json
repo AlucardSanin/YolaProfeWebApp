@@ -1,21 +1,44 @@
 {
   "numero": 3,
-  "titulo": "El Sistema Consonántico",
-  "objetivo": "Articular correctamente los fonemas consonánticos según su modo, punto de articulación y sonoridad (*Voiced/Voiceless*).",
-  "porQueImporta": "Muchos estudiantes arrastran sonidos del español al inglés. Pronunciar una `/v/` como `/b/`, o una `/θ/` (th) como `/t/` o `/s/`, genera malentendidos y resta naturalidad al discurso.",
+  "titulo": "El Sistema Consonántico del Inglés",
+  "objetivo": "Articular correctamente los fonemas consonánticos clasificándolos según modo de articulación, punto de articulación y sonoridad (*Voiced vs. Voiceless*).",
+  "porQueImporta": "Permite superar fricativas, oclusivas finales y grupos consonánticos (*clusters*) inexistentes en la L1 que afectan gravemente la inteligibilidad. Pronunciar una `/v/` como `/b/`, o una `/θ/` (th) como `/t/` o `/s/`, genera malentendidos.",
 
   "videos": [
-    { "titulo": "Consonants in English", "fuente": "BBC Learning English", "youtubeId": "", "busqueda": "BBC Learning English consonant sounds" },
-    { "titulo": "How to pronounce TH /θ/ and /ð/", "fuente": "Rachel's English", "youtubeId": "", "busqueda": "Rachel's English TH sound" }
+    { "titulo": "Video demostrativo de consonantes", "fuente": "Rachel's English", "youtubeId": "4cU9fqpCqBA" }
   ],
 
   "enlaces": [
-    { "titulo": "Lectura recomendada: terminaciones del pasado regular", "url": "", "descripcion": "Guía sobre terminaciones de verbos regulares en pasado (/t/, /d/, /ɪd/)." }
+    {
+      "tipo": "lectura",
+      "titulo": "Guía completa de los 24 sonidos consonánticos",
+      "url": "https://www.learnenglishsounds.com/es/blog/24-sonidos-consonantes-ingles-guia-completa",
+      "descripcion": "Descripción de cada consonante del inglés con ejemplos (LearnEnglishSounds)."
+    },
+    {
+      "tipo": "lectura",
+      "titulo": "Tabla interactiva del AFI: IPA Consonants",
+      "url": "https://ipachart.app/consonants",
+      "incrustar": true,
+      "descripcion": "Toca cada símbolo para escuchar su sonido con ejemplos (IPA Chart)."
+    },
+    {
+      "tipo": "practica",
+      "titulo": "Ejercicios prácticos de pronunciación de consonantes",
+      "url": "https://www.learnenglishsounds.com/es/practice/pronunciation/consonants",
+      "descripcion": "Escucha y repite cada sonido consonántico (LearnEnglishSounds)."
+    },
+    {
+      "tipo": "quiz",
+      "titulo": "Juego de identificación IPA",
+      "url": "https://www.purposegames.com/game/ipa-consonants",
+      "descripcion": "Ubica cada consonante en la tabla del AFI (PurposeGames)."
+    }
   ],
 
   "reto": {
     "titulo": "Speaking Challenge 3: The Consonant Workout",
     "mensajeFinal": "¡Siente la vibración en tu laringe! Esa es la verdadera esencia fonética del inglés.",
-    "formularioUrl": ""
+    "formularioUrl": "https://forms.gle/784YVBWGH6pgi6bQ9"
   }
 }

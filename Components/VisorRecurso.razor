@@ -1,0 +1,46 @@
+@*
+    Ventana dentro de la plataforma para abrir un recurso externo sin salir del sitio.
+    Solo se usa con sitios que permiten mostrarse dentro de otra página ("incrustar": true).
+*@
+@inject IJSRuntime JS
+
+@if (Enlace is not null)
+{
+    <div class="visor-fondo" @onclick="CerrarAsync"></div>
+    <div class="visor" role="dialog" aria-modal="true" aria-labelledby="visor-titulo"
+         tabindex="-1" @ref="_ventana" @onkeydown="TeclaAsync">
+        <header class="visor-barra">
+            <strong id="visor-titulo" class="visor-titulo">@Enlace.Titulo</strong>
+            <a class="visor-accion" href="@Enlace.Url" target="_blank" rel="noopener">Abrir en pestaña nueva ↗</a>
+            <button type="button" class="visor-cerrar" @onclick="CerrarAsync" aria-label="Cerrar">✕</button>
+        </header>
+        <div class="visor-cuerpo">
+            <p class="visor-cargando">Cargando @Enlace.Dominio…</p>
+            <iframe src="@Enlace.UrlVisor" title="@Enlace.Titulo"
+                    allow="autoplay; fullscreen; clipboard-write" allowfullscreen></iframe>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter] public Enlace? Enlace { get; set; }
+    [Parameter] public EventCallback OnCerrar { get; set; }
+
+    private ElementReference _ventana;
+    private Enlace? _abierto;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (Enlace == _abierto) return;
+        _abierto = Enlace;
+        await JS.InvokeVoidAsync("fonetica.bloquearDesplazamiento", Enlace is not null);
+        if (Enlace is not null) await JS.InvokeVoidAsync("fonetica.enfocar", _ventana);
+    }
+
+    private async Task TeclaAsync(KeyboardEventArgs e)
+    {
+        if (e.Key == "Escape") await CerrarAsync();
+    }
+
+    private Task CerrarAsync() => OnCerrar.InvokeAsync();
+}

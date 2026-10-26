@@ -285,3 +285,106 @@ mark {
 @media (prefers-reduced-motion: reduce) {
     * { transition: none !important; }
 }
+
+/* =========================================================
+   v2: índice del módulo, recursos, visor, fichas y pasos
+   ========================================================= */
+
+.boton-pequeno { font-size: .9rem; padding: 7px 14px; border-radius: 8px; white-space: nowrap; }
+
+/* Índice de secciones del módulo */
+.indice { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
+.indice-chip {
+    font: inherit; font-size: .88rem; font-weight: 600; cursor: pointer;
+    background: var(--superficie); color: var(--azul-oscuro);
+    border: 1px solid var(--borde); border-radius: 999px; padding: 6px 14px;
+}
+.indice-chip:hover { border-color: var(--azul); background: var(--azul-suave); }
+.indice-chip-reto { background: var(--naranja-suave); border-color: var(--naranja); color: #8a4100; }
+
+.bloque { scroll-margin-top: 84px; }
+.reto { scroll-margin-top: 84px; }
+.bloque-nota { margin: -6px 0 16px; color: var(--texto-suave); font-size: .92rem; }
+
+/* Recursos externos */
+.recursos { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+.recurso {
+    display: flex; align-items: center; gap: 14px;
+    background: var(--superficie); border: 1px solid var(--borde); border-radius: var(--radio);
+    padding: 14px 16px;
+}
+.recurso-icono {
+    flex: none; width: 40px; height: 40px; border-radius: 10px; display: grid; place-items: center;
+    background: var(--azul-suave); font-size: 1.2rem;
+}
+.recurso-texto { flex: 1; min-width: 0; display: flex; flex-direction: column; line-height: 1.4; }
+.recurso-titulo { color: var(--azul-oscuro); }
+.recurso-descripcion { color: var(--texto-suave); font-size: .92rem; }
+.recurso-dominio { color: var(--texto-suave); font-size: .78rem; opacity: .85; margin-top: 2px; }
+.recurso-acciones { flex: none; display: flex; gap: 6px; }
+@media (max-width: 560px) {
+    .recurso { flex-wrap: wrap; }
+    .recurso-texto { flex-basis: calc(100% - 54px); }
+    .recurso-acciones { width: 100%; padding-left: 54px; }
+}
+
+/* Visor de recursos dentro de la plataforma */
+.sin-desplazamiento, .sin-desplazamiento body { overflow: hidden; }
+.visor-fondo { position: fixed; inset: 0; background: rgba(10, 20, 40, .6); z-index: 50; }
+.visor {
+    position: fixed; z-index: 51; inset: 4vh 4vw; display: flex; flex-direction: column;
+    background: var(--superficie); border-radius: 14px; overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, .35); outline: none;
+}
+.visor-barra {
+    display: flex; align-items: center; gap: 12px; padding: 10px 12px 10px 18px;
+    border-bottom: 1px solid var(--borde); background: var(--fondo);
+}
+.visor-titulo { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--azul-oscuro); }
+.visor-accion { font-size: .88rem; font-weight: 600; white-space: nowrap; }
+.visor-cerrar {
+    flex: none; width: 40px; height: 40px; border-radius: 10px; border: 0; cursor: pointer;
+    background: var(--azul); color: #fff; font-size: 1.1rem;
+}
+.visor-cerrar:hover { background: var(--azul-oscuro); }
+.visor-cuerpo { position: relative; flex: 1; background: #fff; }
+.visor-cuerpo iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.visor-cargando { position: absolute; inset: 0; display: grid; place-items: center; margin: 0; color: var(--texto-suave); }
+@media (max-width: 760px) {
+    .visor { inset: 0; border-radius: 0; }
+    .visor-accion { font-size: .8rem; }
+}
+
+/* Fichas de los órganos del habla (details/summary en el Markdown) */
+.fichas { display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 170px), 1fr)); margin: 12px 0 8px; }
+.fichas details {
+    background: var(--superficie); border: 1px solid var(--borde); border-radius: var(--radio);
+    padding: 12px 14px; cursor: pointer; transition: border-color .15s;
+}
+.fichas details[open] { border-color: var(--naranja); background: var(--naranja-suave); }
+.fichas summary { list-style: none; font-weight: 600; color: var(--azul-oscuro); display: flex; gap: 10px; align-items: center; }
+.fichas summary::-webkit-details-marker { display: none; }
+.fichas summary b {
+    flex: none; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center;
+    background: var(--azul); color: #fff; font-size: .8rem;
+}
+.fichas details[open] summary b { background: var(--naranja); }
+.fichas details > :not(summary) { margin-top: 6px; }
+.fichas details { font-size: .95rem; color: var(--texto); }
+
+/* Pasos para enviar el Speaking Challenge */
+.pasos { counter-reset: paso; list-style: none; padding: 0; margin: 20px 0 8px; display: grid; gap: 8px; }
+.pasos li {
+    counter-increment: paso; position: relative; padding: 10px 14px 10px 50px;
+    background: var(--superficie); border-radius: 10px; font-size: .95rem; line-height: 1.5;
+}
+.pasos li::before {
+    content: counter(paso); position: absolute; left: 12px; top: 9px;
+    width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center;
+    background: var(--naranja); color: #fff; font-weight: 700; font-size: .85rem;
+}
+
+/* Paginación entre módulos */
+.paginacion-enlace { display: flex; flex-direction: column; max-width: 48%; line-height: 1.35; }
+.paginacion-etiqueta { font-size: .78rem; text-transform: uppercase; letter-spacing: .05em; color: var(--texto-suave); font-weight: 700; }
+@media (max-width: 560px) { .paginacion-enlace { max-width: 100%; width: 100%; } .paginacion-siguiente { text-align: right; } }

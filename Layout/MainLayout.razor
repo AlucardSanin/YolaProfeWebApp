@@ -2,6 +2,7 @@
 @implements IDisposable
 @inject ContenidoService Contenido
 @inject NavigationManager Navegacion
+@inject AnaliticaService Analitica
 
 <a class="saltar" href="#principal">Saltar al contenido</a>
 
@@ -79,6 +80,9 @@
                 _logoPrincipal = (await Contenido.UrlAsync(_sitio.LogoPrincipal)).ToString();
             if (!string.IsNullOrWhiteSpace(_sitio.LogoSecundario))
                 _logoSecundario = (await Contenido.UrlAsync(_sitio.LogoSecundario)).ToString();
+
+            await Analitica.IniciarAsync(_sitio.GoogleAnalyticsId);
+            await Analitica.PaginaVistaAsync();
         }
         catch
         {
@@ -90,6 +94,7 @@
     {
         _menuAbierto = false;
         StateHasChanged();
+        _ = Analitica.PaginaVistaAsync().AsTask();
     }
 
     public void Dispose() => Navegacion.LocationChanged -= AlNavegar;

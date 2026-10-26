@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 220" role="img" aria-labelledby="t">
-  <title id="t">Espacio reservado para la imagen del aparato fonador</title>
-  <rect x="4" y="4" width="552" height="212" rx="14" fill="#f4f7fc" stroke="#1d4f91" stroke-width="2" stroke-dasharray="8 6"/>
-  <text x="280" y="92" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="bold" fill="#0f2f5c">Imagen del aparato fonador (corte sagital)</text>
-  <text x="280" y="126" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="14" fill="#5b6475">Reemplace este archivo por la imagen definitiva:</text>
-  <text x="280" y="150" text-anchor="middle" font-family="Consolas, monospace" font-size="14" fill="#5b6475">contenido/modulos/modulo-1/aparato-fonador.svg (o .jpg / .png)</text>
-</svg>
